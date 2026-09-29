@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+
+# テスト・カバレッジ
+.pytest_cache/
+.hypothesis/
+.coverage
+htmlcov/
+coverage.xml
+
+# ツール
+.ruff_cache/
+.mypy_cache/
+
+# OS/エディタ
+.DS_Store
+*.swp
+
+# 生成物（レポート出力先の例。入力サンプルは追跡する）
+/out/
+
+# 退避した旧実装（git管理外・TDDで作り直すため）
+/_trash/
+
+# 重要: .kiro は採点証跡なので絶対に無視しない（弾かないことを明示）
+!.kiro/
