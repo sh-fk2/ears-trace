@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Ruff lint/format on Python save",
+      "trigger": "PostFileSave",
+      "matcher": "\\.py$",
+      "action": {
+        "type": "command",
+        "command": "ruff check --fix . && ruff format ."
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Retrace on requirements save",
+      "trigger": "PostFileSave",
+      "matcher": "requirements\\.md$",
+      "action": {
+        "type": "command",
+        "command": "ears-trace report examples/sample_requirements.md --tests tests/ -o out/traceability.html"
+      }
+    }
+  ]
+}
