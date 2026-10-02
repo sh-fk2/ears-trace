@@ -60,18 +60,33 @@ def _tests_cell(link: TraceLink) -> str:
     return f"<td>{escaped}</td>"
 
 
-def _row_html(report: CoverageReport, link: TraceLink) -> str:
-    """1要件分のトレーサビリティ表の行 HTML を返す（R-27, R-31）。"""
+def _row_html(
+    report: CoverageReport,
+    link: TraceLink,
+    annotations: dict[str, str] | None = None,
+) -> str:
+    """1要件分のトレーサビリティ表の行 HTML を返す（R-27, R-31）。
+
+    annotations が与えられ、その要件の EARS パターンに対応する説明があれば、
+    パターン列に説明を併記する（L6: MCP取得の注釈を反映）。説明も入力由来として
+    エスケープする（R-31整合）。
+    """
     # requirement_id に対応する要件を引く（build_report は 1対1 で生成する）。
     requirement = next(req for req in report.requirements if req.id == link.requirement_id)
     # 要件 ID・パターン名・原文は入力由来のためエスケープする（R-31）。
     req_id = html.escape(requirement.id)
     pattern = html.escape(requirement.pattern.value)
     text = html.escape(requirement.text)
+    # 注釈があればパターンセルに併記（エスケープ必須）。
+    pattern_cell = pattern
+    if annotations:
+        note = annotations.get(requirement.pattern.value)
+        if note:
+            pattern_cell = f"{pattern}<br><small>{html.escape(note)}</small>"
     return (
         "<tr>"
         f"<td>{req_id}</td>"
-        f"<td>{pattern}</td>"
+        f"<td>{pattern_cell}</td>"
         f'<td class="text">{text}</td>'
         f"{_tests_cell(link)}"
         f"{_status_cell(link)}"
@@ -88,7 +103,7 @@ def _summary_html(report: CoverageReport) -> str:
     return f'<div class="summary"><strong>Coverage: {covered} / {total} ({percent}%)</strong></div>'
 
 
-def _table_html(report: CoverageReport) -> str:
+def _table_html(report: CoverageReport, annotations: dict[str, str] | None = None) -> str:
     """全要件を列挙したトレーサビリティ表 HTML を返す（R-27）。"""
     header = (
         "<thead><tr>"
@@ -96,7 +111,7 @@ def _table_html(report: CoverageReport) -> str:
         "<th>Tests</th><th>Status</th>"
         "</tr></thead>"
     )
-    rows = "".join(_row_html(report, link) for link in report.links)
+    rows = "".join(_row_html(report, link, annotations) for link in report.links)
     return f"<table>{header}<tbody>{rows}</tbody></table>"
 
 
@@ -116,7 +131,10 @@ def _meta_html(report: CoverageReport) -> str:
     )
 
 
-def render_html(report: CoverageReport) -> str:
+def render_html(
+    report: CoverageReport,
+    annotations: dict[str, str] | None = None,
+) -> str:
     """CoverageReport から自己完結 HTML を生成する純粋関数（R-26〜R-31）。
 
     外部リソースに依存しないインライン CSS 付きの静的 HTML を返す（R-26）。
@@ -124,8 +142,12 @@ def render_html(report: CoverageReport) -> str:
     UTC 生成時刻（R-30）を埋め込み、入力由来の文字列はすべてエスケープする（R-31）。
     同一入力に対して常に同一の出力を返す（決定論的）。
 
+    annotations（任意）が与えられると、各 EARS パターンの説明を表に併記する
+    （L6: MCP(fetch) で取得した注釈の反映）。未指定時は従来と同一の出力になる。
+
     Args:
         report: レンダリング対象の不変なカバレッジ集計結果。
+        annotations: EARS パターン値→説明文の写像（任意）。None なら注釈なし。
 
     Returns:
         自己完結した HTML 文書文字列。
@@ -141,7 +163,7 @@ def render_html(report: CoverageReport) -> str:
         "<body>\n"
         "<h1>Traceability Report</h1>\n"
         f"{_summary_html(report)}\n"
-        f"{_table_html(report)}\n"
+        f"{_table_html(report, annotations)}\n"
         f"{_meta_html(report)}\n"
         "</body>\n"
         "</html>\n"

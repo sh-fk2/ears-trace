@@ -418,3 +418,81 @@ def test_report_missing_tests_dir_does_not_crash(tmp_path: Path) -> None:
     assert exit_code == 0
     assert out_path.exists()
     assert "gap" in out_path.read_text(encoding="utf-8").lower()
+
+
+
+# ---------------------------------------------------------------------------
+# L6: report --enrich で MCP取得の注釈JSONをレポートへ反映する
+# ---------------------------------------------------------------------------
+@pytest.mark.integration
+@pytest.mark.requirement("R-50")
+def test_report_enrich_embeds_annotations_from_json(tmp_path: Path) -> None:
+    """--enrich に注釈JSON（MCP取得結果）を渡すと、説明がレポートに入る。
+
+    fetch MCP が取得・保存した注釈JSONを ears-trace が実行時に読み込む経路（L6）。
+    req: R-50
+    """
+    # Arrange
+    import json
+
+    req_path = _write_requirements(tmp_path)
+    out_path = tmp_path / "report.html"
+    annotations_path = tmp_path / "annotations.json"
+    annotations_path.write_text(
+        json.dumps(
+            {"UBIQUITOUS": "常時要件の説明(MCP)", "EVENT": "イベント要件の説明(MCP)"},
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    # Act
+    exit_code = main(
+        [
+            "report",
+            "--requirements",
+            str(req_path),
+            "-o",
+            str(out_path),
+            "--enrich",
+            str(annotations_path),
+        ]
+    )
+
+    # Assert
+    assert exit_code == 0
+    content = out_path.read_text(encoding="utf-8")
+    assert "常時要件の説明(MCP)" in content
+    assert "イベント要件の説明(MCP)" in content
+
+
+@pytest.mark.integration
+@pytest.mark.requirement("R-50")
+def test_report_enrich_missing_json_falls_back_without_crash(tmp_path: Path) -> None:
+    """--enrich に存在しないJSONを指定しても、クラッシュせず通常レポートを出す。
+
+    MCP取得結果が無い環境でも処理を継続する（R-50 頑健性）。
+    req: R-50
+    """
+    # Arrange
+    req_path = _write_requirements(tmp_path)
+    out_path = tmp_path / "report.html"
+    missing = tmp_path / "no_such_annotations.json"
+
+    # Act
+    exit_code = main(
+        [
+            "report",
+            "--requirements",
+            str(req_path),
+            "-o",
+            str(out_path),
+            "--enrich",
+            str(missing),
+        ]
+    )
+
+    # Assert: 落ちずに0、HTMLは生成される
+    assert exit_code == 0
+    assert out_path.exists()
+    assert "<!DOCTYPE html>" in out_path.read_text(encoding="utf-8")

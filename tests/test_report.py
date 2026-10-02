@@ -266,3 +266,66 @@ def test_render_html_is_deterministic() -> None:
 
     # Assert
     assert first == second
+
+
+# ---------------------------------------------------------------------------
+# L6: 注釈（MCPで取得したEARSパターン説明）をレポートに反映する
+# ---------------------------------------------------------------------------
+@pytest.mark.unit
+@pytest.mark.requirement("R-50")
+def test_render_html_without_annotations_is_unchanged() -> None:
+    """annotations 未指定時は従来通りの出力（後方互換・決定論を壊さない）。
+
+    req: R-50
+    """
+    # Arrange
+    report = _sample_report()
+
+    # Act
+    default_html = render_html(report)
+    explicit_none = render_html(report, annotations=None)
+
+    # Assert
+    assert default_html == explicit_none
+
+
+@pytest.mark.unit
+@pytest.mark.requirement("R-50")
+def test_render_html_embeds_annotations_when_provided() -> None:
+    """annotations 指定時、各EARSパターンの説明がHTMLに埋め込まれる。
+
+    MCP(fetch)で取得した注釈をレポートに反映する経路（L6）。
+    req: R-50
+    """
+    # Arrange
+    report = _sample_report()
+    annotations = {
+        "UBIQUITOUS": "常時成立する要件（MCP取得）",
+        "EVENT": "トリガ応答要件（MCP取得）",
+    }
+
+    # Act
+    rendered = render_html(report, annotations=annotations)
+
+    # Assert: 注釈文がレポート本文に含まれる
+    assert "常時成立する要件（MCP取得）" in rendered
+    assert "トリガ応答要件（MCP取得）" in rendered
+
+
+@pytest.mark.unit
+@pytest.mark.requirement("R-50")
+def test_render_html_escapes_annotations() -> None:
+    """注釈文も入力由来としてHTMLエスケープされる（R-31整合）。
+
+    req: R-50
+    """
+    # Arrange
+    report = _sample_report()
+    annotations = {"UBIQUITOUS": "<script>alert(1)</script>"}
+
+    # Act
+    rendered = render_html(report, annotations=annotations)
+
+    # Assert: 生のscriptタグは入らず、エスケープされている
+    assert "<script>alert(1)</script>" not in rendered
+    assert html.escape("<script>alert(1)</script>") in rendered

@@ -18,6 +18,7 @@ import argparse
 from pathlib import Path
 
 from ears_trace.coverage import build_report
+from ears_trace.enrich import DEFAULT_DESCRIPTIONS, load_annotations
 from ears_trace.linker import extract_links_from_paths
 from ears_trace.models import CoverageReport
 from ears_trace.parser import parse
@@ -57,6 +58,16 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
         default=_DEFAULT_REPORT_OUTPUT,
         help=f"HTML 出力先（既定: {_DEFAULT_REPORT_OUTPUT}）",
+    )
+    report_parser.add_argument(
+        "--enrich",
+        type=Path,
+        default=None,
+        metavar="ANNOTATIONS_JSON",
+        help=(
+            "EARSパターン注釈JSON（MCP(fetch)で取得・保存した説明）を読み込み、"
+            "レポートに併記する。読み込めない場合は内蔵の既定説明にフォールバックする"
+        ),
     )
 
     # check サブコマンド（R-40, R-41, R-42）。
@@ -160,10 +171,36 @@ def _write_output(output: Path, content: str) -> None:
     output.write_text(content, encoding="utf-8")
 
 
+def _resolve_annotations(enrich_path: Path | None) -> dict[str, str] | None:
+    """--enrich 指定時にレポートへ併記する注釈写像を解決する（L6, R-50）。
+
+    MCP(fetch)が取得・保存した注釈JSONを読み込む。読み込めない場合は内蔵の
+    既定説明（全EARSパターン）にフォールバックし、処理を中断しない（R-50）。
+    --enrich 未指定なら None（注釈なし）を返す。
+
+    Args:
+        enrich_path: --enrich に渡された注釈JSONのパス。未指定なら None。
+
+    Returns:
+        EARSパターン値→説明文の写像、または None。
+    """
+    if enrich_path is None:
+        return None
+    loaded = load_annotations(enrich_path)
+    if loaded is not None:
+        return loaded
+    # 読み込み失敗時は内蔵既定説明にフォールバック（R-50）。
+    return {pattern.value: text for pattern, text in DEFAULT_DESCRIPTIONS.items()}
+
+
 def _run_report(args: argparse.Namespace) -> int:
-    """report サブコマンド本体: HTML を書き出し 0 を返す（R-39, R-44）。"""
+    """report サブコマンド本体: HTML を書き出し 0 を返す（R-39, R-44）。
+
+    --enrich 指定時は注釈をレポートへ併記する（L6, R-50）。
+    """
     report = _build_report_from_args(args)
-    _write_output(args.output, render_html(report))
+    annotations = _resolve_annotations(getattr(args, "enrich", None))
+    _write_output(args.output, render_html(report, annotations=annotations))
     return 0
 
 

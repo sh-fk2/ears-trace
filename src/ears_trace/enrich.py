@@ -10,7 +10,9 @@
 
 from __future__ import annotations
 
+import json
 from collections.abc import Callable
+from pathlib import Path
 
 from ears_trace.models import EarsPattern
 
@@ -66,3 +68,54 @@ def annotate(pattern: EarsPattern, fetcher: AnnotationFetcher | None = None) -> 
     if fetched:
         return fetched
     return default
+
+
+def fetcher_from_mapping(mapping: dict[str, str]) -> AnnotationFetcher:
+    """パターン値→説明文の写像から AnnotationFetcher を生成する（L6連携）。
+
+    MCP（fetch サーバ）が取得した EARS パターンの注釈を、ears-vocabulary 規約の
+    パターン値（例: "event", "ubiquitous"）をキーとする写像として受け取り、
+    `annotate` に注入できる fetcher へ変換する。写像に無いパターンでは None を
+    返し、`annotate` 側で内蔵の既定説明へフォールバックさせる（R-50）。
+
+    Args:
+        mapping: EarsPattern の値（文字列）→ 説明文 の写像。
+
+    Returns:
+        EarsPattern を受け取り説明文または None を返す fetcher。
+    """
+
+    def _fetcher(pattern: EarsPattern) -> str | None:
+        return mapping.get(pattern.value)
+
+    return _fetcher
+
+
+def load_annotations(path: Path) -> dict[str, str] | None:
+    """注釈 JSON ファイルを読み込み、パターン値→説明文の写像を返す（L6連携）。
+
+    MCP（fetch）で取得・保存された注釈 JSON を実行時に読み込むための入口。
+    ファイルが存在しない・読めない・壊れている・形式が不正な場合は、例外で
+    停止せず None を返す（R-50 頑健性）。None は呼び出し側で「注釈なし＝内蔵の
+    既定説明にフォールバック」の起点になる。
+
+    Args:
+        path: 注釈 JSON のパス。
+
+    Returns:
+        文字列キー・文字列値の写像。読み込めない場合は None。
+    """
+    try:
+        raw = path.read_text(encoding="utf-8")
+        data = json.loads(raw)
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+        return None
+
+    # 形式が dict でない、または値に非文字列が混じる場合は不正として None。
+    if not isinstance(data, dict):
+        return None
+    result: dict[str, str] = {}
+    for key, value in data.items():
+        if isinstance(key, str) and isinstance(value, str):
+            result[key] = value
+    return result

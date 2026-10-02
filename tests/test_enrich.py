@@ -7,9 +7,17 @@ report-format ステアリング規約に従い、各テストへ requirement �
 docstring の `req:` タグを付与する。AAA（Arrange-Act-Assert）パターンで記述する。
 """
 
+import json
+from pathlib import Path
+
 import pytest
 
-from ears_trace.enrich import DEFAULT_DESCRIPTIONS, annotate
+from ears_trace.enrich import (
+    DEFAULT_DESCRIPTIONS,
+    annotate,
+    fetcher_from_mapping,
+    load_annotations,
+)
 from ears_trace.models import EarsPattern
 
 
@@ -136,3 +144,100 @@ def test_annotate_falls_back_when_fetcher_returns_empty_string() -> None:
 
     # Assert
     assert result == DEFAULT_DESCRIPTIONS[pattern]
+
+
+# ---------------------------------------------------------------------------
+# L6 連携: MCPで取得した注釈マッピングから fetcher を生成する
+# ---------------------------------------------------------------------------
+@pytest.mark.unit
+@pytest.mark.requirement("R-50")
+def test_fetcher_from_mapping_returns_value_for_known_pattern() -> None:
+    """注釈マッピングに存在するパターンは、その説明を返す fetcher を生成する。
+
+    MCP(fetch)で取得した注釈を dict として受け取り、fetcher 化する経路。
+    req: R-50
+    """
+    # Arrange: fetch MCP が取得・保存した注釈を模した写像（キーはパターン値）
+    mapping = {"EVENT": "WHENトリガに応答する要件（MCP取得版）"}
+    fetcher = fetcher_from_mapping(mapping)
+
+    # Act
+    result = annotate(EarsPattern.EVENT, fetcher)
+
+    # Assert
+    assert result == "WHENトリガに応答する要件（MCP取得版）"
+
+
+@pytest.mark.unit
+@pytest.mark.requirement("R-50")
+def test_fetcher_from_mapping_falls_back_for_unknown_pattern() -> None:
+    """マッピングに無いパターンは None を返し、既定説明へフォールバックさせる。
+
+    req: R-50
+    """
+    # Arrange: event だけ定義。state は未定義
+    mapping = {"EVENT": "説明"}
+    fetcher = fetcher_from_mapping(mapping)
+
+    # Act
+    result = annotate(EarsPattern.STATE, fetcher)
+
+    # Assert
+    assert result == DEFAULT_DESCRIPTIONS[EarsPattern.STATE]
+
+
+@pytest.mark.unit
+@pytest.mark.requirement("R-50")
+def test_load_annotations_reads_json_mapping(tmp_path: Path) -> None:
+    """注釈JSONファイルを読み込み、パターン値→説明の写像を返す。
+
+    MCP(fetch)が取得結果を保存したJSONを、ears-trace実行時に読み込む経路。
+    req: R-50
+    """
+    # Arrange
+    path = tmp_path / "annotations.json"
+    path.write_text(
+        json.dumps({"UBIQUITOUS": "常時要件(MCP)"}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    # Act
+    mapping = load_annotations(path)
+
+    # Assert
+    assert mapping == {"UBIQUITOUS": "常時要件(MCP)"}
+
+
+@pytest.mark.unit
+@pytest.mark.requirement("R-50")
+def test_load_annotations_returns_none_for_missing_file(tmp_path: Path) -> None:
+    """注釈JSONが存在しないとき None を返す（フォールバックの起点・R-50頑健性）。
+
+    req: R-50
+    """
+    # Arrange
+    missing = tmp_path / "does_not_exist.json"
+
+    # Act
+    mapping = load_annotations(missing)
+
+    # Assert
+    assert mapping is None
+
+
+@pytest.mark.unit
+@pytest.mark.requirement("R-50")
+def test_load_annotations_returns_none_for_broken_json(tmp_path: Path) -> None:
+    """注釈JSONが壊れていても例外で停止せず None を返す（R-50頑健性）。
+
+    req: R-50
+    """
+    # Arrange
+    path = tmp_path / "broken.json"
+    path.write_text("{ this is not valid json", encoding="utf-8")
+
+    # Act
+    mapping = load_annotations(path)
+
+    # Assert
+    assert mapping is None
