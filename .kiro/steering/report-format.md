@@ -16,12 +16,15 @@ inclusion: always
 ```python
 import pytest
 
+
 # 1. マーカー（推奨）
 @pytest.mark.requirement("R-02")
 def test_invalid_form_shows_errors() -> None: ...
 
+
 # 2. 命名規約（test_r02_... -> R-02）
 def test_r02_invalid_form() -> None: ...
+
 
 # 3. docstring 内のタグ
 def test_server_side_validation() -> None:
@@ -52,11 +55,12 @@ def test_server_side_validation() -> None:
 def normalize_id(raw: str) -> str:
     m = re.match(r"^([A-Za-z]{1,5})-?(\d{1,4})$", raw)
     prefix, num = m.group(1).upper(), int(m.group(2))
-    return f"{prefix}-{num:02d}"   # "r1" -> "R-01"
+    return f"{prefix}-{num:02d}"  # "r1" -> "R-01"
+
 
 # 良い例: 入力由来の文字列はエスケープしてから描画
 cell = html.escape(requirement.text)
 
 # 悪い例: 生の文字列をHTMLに直接埋める（XSS・表崩れ）
-cell = requirement.text   # ← 禁止
+cell = requirement.text  # ← 禁止
 ```

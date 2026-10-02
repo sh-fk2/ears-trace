@@ -41,25 +41,28 @@ fileMatchPattern: "**/*.py"
 # 良い例: 純粋関数 + 時刻注入 + 不変な戻り値
 from datetime import datetime, timezone
 
+
 def build_report(
     requirements: tuple[Requirement, ...],
     links: dict[str, tuple[str, ...]],
     *,
     input_text: str,
-    now: datetime | None = None,   # 非決定要素を注入可能に
-) -> CoverageReport:                # frozen dataclass を返す（不変）
+    now: datetime | None = None,  # 非決定要素を注入可能に
+) -> CoverageReport:  # frozen dataclass を返す（不変）
     generated = (now or datetime.now(timezone.utc)).isoformat()
     ...
+
 
 # 良い例: 境界で防御し例外を伝播させない
 def extract_links_from_source(source: str) -> dict[str, tuple[str, ...]]:
     try:
         tree = ast.parse(source)
     except SyntaxError:
-        return {}                   # 解析不能はスキップ（クラッシュしない）
+        return {}  # 解析不能はスキップ（クラッシュしない）
+
 
 # 悪い例: ドメイン層でファイルを直接読む（副作用がドメインに漏れる）
-def parse_file(path: str):          # ← 禁止。I/O は cli 層に置く
+def parse_file(path: str):  # ← 禁止。I/O は cli 層に置く
     text = open(path).read()
     ...
 ```

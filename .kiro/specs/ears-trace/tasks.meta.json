@@ -1,0 +1,384 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. テスト基盤の整備": [
+      {
+        "executionId": "f1ba2c77-c227-4a7b-9bec-ab83cd469d2b",
+        "chatSessionId": "sess_026de4bf-a08d-4979-9cbb-e967edab1bb7",
+        "timestamp": 1790696903455
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790956992625
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790957002398
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790957200115
+      }
+    ],
+    "2. models の不変条件を検証する": [
+      {
+        "executionId": "4439e69a-4d76-43b3-aea7-269e475a6a03",
+        "chatSessionId": "sess_bd883f0d-dd8b-4498-84de-1b05bf06f0d4",
+        "timestamp": 1790696983131
+      },
+      {
+        "executionId": "4439e69a-4d76-43b3-aea7-269e475a6a03",
+        "chatSessionId": "sess_bd883f0d-dd8b-4498-84de-1b05bf06f0d4",
+        "timestamp": 1790697178028
+      }
+    ],
+    "3. parser の抽出・分類・採番を実装・検証する": [
+      {
+        "executionId": "2a89f6f2-adae-4240-8e5d-4a8d883e6bb4",
+        "chatSessionId": "sess_6a513435-6d00-4eb1-abbf-86575b3abbae",
+        "timestamp": 1790697338579
+      },
+      {
+        "executionId": "2a89f6f2-adae-4240-8e5d-4a8d883e6bb4",
+        "chatSessionId": "sess_6a513435-6d00-4eb1-abbf-86575b3abbae",
+        "timestamp": 1790697558016
+      }
+    ],
+    "4. linker のリンク抽出を実装・検証する": [
+      {
+        "executionId": "8cd381fa-5684-452a-836b-72f268cf0e34",
+        "chatSessionId": "sess_d763be23-2d9a-4601-be9e-5007895dc05e",
+        "timestamp": 1790697600290
+      },
+      {
+        "executionId": "8cd381fa-5684-452a-836b-72f268cf0e34",
+        "chatSessionId": "sess_d763be23-2d9a-4601-be9e-5007895dc05e",
+        "timestamp": 1790953563148
+      }
+    ],
+    "5. coverage の集計と集合分割を実装・検証する": [
+      {
+        "executionId": "a3b446da-3532-42e1-b875-1f67701137d2",
+        "chatSessionId": "sess_31fb53af-51c5-4452-aa46-b467e6c5d9bf",
+        "timestamp": 1790953603431
+      },
+      {
+        "executionId": "a3b446da-3532-42e1-b875-1f67701137d2",
+        "chatSessionId": "sess_31fb53af-51c5-4452-aa46-b467e6c5d9bf",
+        "timestamp": 1790953737411
+      }
+    ],
+    "6. report の HTML 生成を実装・検証する": [
+      {
+        "executionId": "3bbc677e-6ff6-4645-9755-0e73107e8c26",
+        "chatSessionId": "sess_024e5bd9-fbc3-4eb1-856c-522f10674791",
+        "timestamp": 1790953768913
+      },
+      {
+        "executionId": "3bbc677e-6ff6-4645-9755-0e73107e8c26",
+        "chatSessionId": "sess_024e5bd9-fbc3-4eb1-856c-522f10674791",
+        "timestamp": 1790954583206
+      }
+    ],
+    "7. stub_generator のスタブ生成を実装・検証する": [
+      {
+        "executionId": "becc0d36-6bb9-4e1c-b176-ade83d3a542b",
+        "chatSessionId": "sess_755a5cc2-06a9-4662-9303-65627cf667a6",
+        "timestamp": 1790954618757
+      },
+      {
+        "executionId": "becc0d36-6bb9-4e1c-b176-ade83d3a542b",
+        "chatSessionId": "sess_755a5cc2-06a9-4662-9303-65627cf667a6",
+        "timestamp": 1790954872763
+      }
+    ],
+    "8. enrich のフォールバックを検証する": [
+      {
+        "executionId": "c5689157-9713-4e87-90e2-bd14bb02bf8a",
+        "chatSessionId": "sess_7ee3549b-6025-46c8-a694-3de53ad7e682",
+        "timestamp": 1790954888850
+      },
+      {
+        "executionId": "c5689157-9713-4e87-90e2-bd14bb02bf8a",
+        "chatSessionId": "sess_7ee3549b-6025-46c8-a694-3de53ad7e682",
+        "timestamp": 1790955000633
+      }
+    ],
+    "9.1 サブコマンド構成を検証する": [
+      {
+        "executionId": "e4b857bd-9d8b-4bcb-b193-fd7ce9f8757f",
+        "chatSessionId": "sess_167d90a5-74ed-46c3-8164-b4da75683184",
+        "timestamp": 1790955078084
+      },
+      {
+        "executionId": "e4b857bd-9d8b-4bcb-b193-fd7ce9f8757f",
+        "chatSessionId": "sess_167d90a5-74ed-46c3-8164-b4da75683184",
+        "timestamp": 1790955794654
+      }
+    ],
+    "9.2 report / generate の出力と終了コードを検証する": [
+      {
+        "executionId": "e4b857bd-9d8b-4bcb-b193-fd7ce9f8757f",
+        "chatSessionId": "sess_167d90a5-74ed-46c3-8164-b4da75683184",
+        "timestamp": 1790955079622
+      },
+      {
+        "executionId": "e4b857bd-9d8b-4bcb-b193-fd7ce9f8757f",
+        "chatSessionId": "sess_167d90a5-74ed-46c3-8164-b4da75683184",
+        "timestamp": 1790955796028
+      }
+    ],
+    "9.3 check の判定と test 収集を検証する": [
+      {
+        "executionId": "e4b857bd-9d8b-4bcb-b193-fd7ce9f8757f",
+        "chatSessionId": "sess_167d90a5-74ed-46c3-8164-b4da75683184",
+        "timestamp": 1790955080611
+      },
+      {
+        "executionId": "e4b857bd-9d8b-4bcb-b193-fd7ce9f8757f",
+        "chatSessionId": "sess_167d90a5-74ed-46c3-8164-b4da75683184",
+        "timestamp": 1790955797235
+      }
+    ],
+    "9. cli のサブコマンドと終了コードを実装・検証する": [
+      {
+        "executionId": "e4b857bd-9d8b-4bcb-b193-fd7ce9f8757f",
+        "chatSessionId": "sess_167d90a5-74ed-46c3-8164-b4da75683184",
+        "timestamp": 1790955797290
+      }
+    ],
+    "3.2 EARSパターン分類の優先順位を検証する": [
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790956992719
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790957296755
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790959382698
+      }
+    ],
+    "3.3 ID採用・採番・一意化を検証する": [
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790956992761
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790959386330
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790959523192
+      }
+    ],
+    "4.1 3方式のリンク抽出を検証する": [
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790956992805
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790959527152
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790959577197
+      }
+    ],
+    "4.2 多対多・統合・整列を検証する": [
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790956992888
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790959581131
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790959669525
+      }
+    ],
+    "10.1 集合分割プロパティ（P2）": [
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790956992940
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790959685775
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790959799247
+      }
+    ],
+    "10.2 単調性プロパティ（P3）": [
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790956992985
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790959804277
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790959856525
+      }
+    ],
+    "10.3 順序不変性プロパティ（P6）": [
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790956993025
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790959860343
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790959908909
+      }
+    ],
+    "10.4 決定論性・冪等性プロパティ（P5）": [
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790956993109
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790959913987
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790959969296
+      }
+    ],
+    "11.1 パーサ頑健性プロパティ（P7）": [
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790956993147
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790959973668
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790960036347
+      }
+    ],
+    "11.2 要件ID一意性プロパティ（P4）": [
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790956993190
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790960040058
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790960085138
+      }
+    ],
+    "11.3 ラウンドトリップ/冪等プロパティ（P1）": [
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790956993278
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790960089059
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790960139637
+      }
+    ],
+    "12. 統合テストと自己カバレッジの担保": [
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790956993319
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790960143821
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790960396982
+      }
+    ],
+    "3.1 要件行の抽出と正規化を検証する": [
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790957208424
+      },
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790957289499
+      }
+    ],
+    "10. PBT: 集合分割・単調性・順序不変性・決定論性": [
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790959969389
+      }
+    ],
+    "11. PBT: パーサ頑健性・ID一意性・ラウンドトリップ": [
+      {
+        "executionId": "d57e04a9-41d7-4830-868f-e08941b811b5",
+        "chatSessionId": "sess_ff4828c9-aecc-424a-98e3-356454b24763",
+        "timestamp": 1790960139745
+      }
+    ]
+  }
+}

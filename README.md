@@ -38,14 +38,15 @@ pytest 側で、次のいずれかの方法で要件IDを宣言する。
 ```python
 import pytest
 
+
 # 1. マーカー
 @pytest.mark.requirement("R-02")
-def test_invalid_form_shows_errors() -> None:
-    ...
+def test_invalid_form_shows_errors() -> None: ...
+
 
 # 2. 命名規約（test_r02_... -> R-02）
-def test_r02_invalid_form() -> None:
-    ...
+def test_r02_invalid_form() -> None: ...
+
 
 # 3. docstring内のタグ
 def test_something() -> None:

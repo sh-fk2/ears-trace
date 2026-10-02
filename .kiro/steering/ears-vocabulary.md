@@ -39,8 +39,8 @@ ears-trace が扱う EARS（Easy Approach to Requirements Syntax）は次の5パ
 # 良い例: 複合パターンを先に評価する判定順（この順序を守る）
 _PATTERN_ORDER = (
     (EarsPattern.UNWANTED, r"\bIF\b.+\bTHEN\b.+\bSHALL\b"),
-    (EarsPattern.EVENT,    r"\bWHEN\b.+\bSHALL\b"),
-    (EarsPattern.STATE,    r"\bWHILE\b.+\bSHALL\b"),
+    (EarsPattern.EVENT, r"\bWHEN\b.+\bSHALL\b"),
+    (EarsPattern.STATE, r"\bWHILE\b.+\bSHALL\b"),
     (EarsPattern.OPTIONAL, r"\bWHERE\b.+\bSHALL\b"),
     (EarsPattern.UBIQUITOUS, r"\bSHALL\b"),
 )
