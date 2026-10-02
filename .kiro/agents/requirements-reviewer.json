@@ -1,0 +1,42 @@
+{
+  "name": "requirements-reviewer",
+  "description": "EARS要件のレビュー専用エージェント。requirements.mdを読み取り、EARS適合性・テスト可能性・トレーサビリティの穴を指摘する。読み取り専用で、ファイルの変更やコミットは行わない。",
+  "prompt": "file://./prompts/requirements-reviewer.md",
+  "model": "claude-sonnet-4.5",
+  "tools": [
+    "read",
+    "glob",
+    "grep"
+  ],
+  "allowedTools": [
+    "read",
+    "glob",
+    "grep"
+  ],
+  "excludedTools": [
+    "write",
+    "delete_file"
+  ],
+  "resources": [
+    "file://../specs/ears-trace/requirements.md",
+    "file://../steering/ears-vocabulary.md",
+    "file://../steering/report-format.md"
+  ],
+  "permissions": {
+    "rules": [
+      {
+        "capability": "shell",
+        "match": ["ears-trace check *", "ears-trace report *"],
+        "effect": "allow"
+      },
+      {
+        "capability": "shell",
+        "match": ["*"],
+        "effect": "deny"
+      }
+    ]
+  },
+  "includeMcpJson": false,
+  "includePowers": false,
+  "welcomeMessage": "EARS要件をレビューします。対象の requirements.md を指定してください。"
+}
