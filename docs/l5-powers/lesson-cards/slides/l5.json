@@ -1,0 +1,49 @@
+{
+  "layout": "Blank",
+  "notes": "Lesson 5: Powers",
+  "elements": [
+    {
+      "type": "shape",
+      "shape": "rectangle",
+      "x": 160,
+      "y": 360,
+      "width": 120,
+      "height": 8,
+      "fill": "#D4AF37"
+    },
+    {
+      "type": "textbox",
+      "x": 160,
+      "y": 400,
+      "width": 1600,
+      "height": 60,
+      "align": "left",
+      "fontSize": 28,
+      "fontColor": "#D4AF37",
+      "text": "Lesson 5"
+    },
+    {
+      "type": "textbox",
+      "x": 160,
+      "y": 470,
+      "width": 1600,
+      "height": 140,
+      "align": "left",
+      "fontSize": 48,
+      "fontColor": "#F5E6B8",
+      "bold": true,
+      "text": "Powers"
+    },
+    {
+      "type": "textbox",
+      "x": 160,
+      "y": 640,
+      "width": 1600,
+      "height": 90,
+      "align": "left",
+      "fontSize": 16,
+      "fontColor": "#9A9AAA",
+      "text": "used a power to turn the coverage result into a slide deck"
+    }
+  ]
+}

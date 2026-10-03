@@ -47,3 +47,15 @@ power に渡してスライド化した。ツール（ears-trace）の出力を 
 - power の出力は既定で `~/Documents/SDPM-Presentations/` に生成される。
   本リポジトリにはL5の証跡として成果物をコピーして収めた。
 - 生成時の警告（top-heavy=上寄り）は軽微なレイアウトバランスの指摘で、内容に影響しない。
+
+
+## デモ動画用のレッスン表紙カード（lesson-cards.pptx）
+
+同じ power（spec-driven-presentation-maker, elegant-dark）で、デモ動画の各レッスン
+区切りに挟む**表紙カード9枚**も生成した。各カードは「レッスン番号 / 名前 /
+このプロジェクトでの一言」で構成し、動画視聴者が L1→L2→… と追えるようにする。
+
+- `lesson-cards.pptx` — 9枚（L1〜L7 + Bonus2 + Bonus1）
+- `lesson-cards/` — 生成に使った slides JSON と outline
+
+これも power を実用に使った証跡（L5）であり、デモ動画の構成素材でもある。
