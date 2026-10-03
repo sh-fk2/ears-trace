@@ -496,3 +496,48 @@ def test_report_enrich_missing_json_falls_back_without_crash(tmp_path: Path) -> 
     assert exit_code == 0
     assert out_path.exists()
     assert "<!DOCTYPE html>" in out_path.read_text(encoding="utf-8")
+
+
+
+# ---------------------------------------------------------------------------
+# python -m ears_trace.cli で main() が実行される（__main__ ガード）
+# ---------------------------------------------------------------------------
+@pytest.mark.integration
+@pytest.mark.requirement("R-37")
+def test_module_execution_invokes_main(tmp_path: Path) -> None:
+    """`python -m ears_trace.cli` 実行で main() が呼ばれ、レポートが生成される。
+
+    PyPI等に依存できない環境でも、依存なしの標準実行経路で動くことを保証する。
+    __main__ ガードが無いと EXIT=0 でも何も生成されない退行を防ぐ。
+    req: R-37
+    """
+    # Arrange
+    import subprocess
+    import sys
+
+    req_path = _write_requirements(tmp_path)
+    out_path = tmp_path / "traceability.html"
+    project_src = Path(__file__).resolve().parents[1] / "src"
+
+    # Act: サブプロセスで python -m ears_trace.cli を実行
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "ears_trace.cli",
+            "report",
+            "--requirements",
+            str(req_path),
+            "-o",
+            str(out_path),
+        ],
+        cwd=tmp_path,
+        env={"PYTHONPATH": str(project_src)},
+        capture_output=True,
+        text=True,
+    )
+
+    # Assert: 正常終了し、HTMLが実際に生成される
+    assert result.returncode == 0, result.stderr
+    assert out_path.exists()
+    assert "<!DOCTYPE html>" in out_path.read_text(encoding="utf-8")

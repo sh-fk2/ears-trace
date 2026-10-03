@@ -315,10 +315,9 @@ def test_self_traceability_all_real_requirements_covered() -> None:
     50 件の要件（R-01〜R-50）が 1 件残らずテストに紐づく（covered）ことを検証し、
     自己トレーサビリティ（ドッグフーディングの自己整合）を担保する。
 
-    注意: パーサは R-01 の仕様どおり `SHALL` を含む行を要件行として抽出するため、
-    Glossary の「要件行」の定義（インラインコードで `SHALL` を含む）も 1 件の要件
-    （採番 ID R-51）として検出される。これは本 spec に実在する受け入れ基準ではなく
-    用語定義に由来する既知の擬似要件であり、実要件 R-01〜R-50 の網羅性には影響しない。
+    KI-01 の修正により、Glossary 等でインラインコード（バッククォート内）に
+    `SHALL` を含むだけの説明文は要件行として抽出されない。したがって擬似要件は
+    発生せず、要件は実在する R-01〜R-50 の 50 件ちょうどになる。
 
     req: R-40
     """
@@ -338,19 +337,19 @@ def test_self_traceability_all_real_requirements_covered() -> None:
     missing = sorted(real_requirement_ids - report.covered_ids)
     assert missing == [], f"未カバレッジの実要件が存在する: {missing}"
 
-    # 既知の擬似要件（Glossary 由来の R-51）以外に uncovered は存在しない
-    assert report.uncovered_ids <= frozenset({"R-51"})
+    # 擬似要件は発生せず、uncovered は存在しない（自己カバレッジ 100%）
+    assert report.uncovered_ids == frozenset()
 
 
 @pytest.mark.integration
 @pytest.mark.requirement("R-40")
-def test_self_check_cli_exit_code_with_glossary_artifact() -> None:
-    """自 spec への `check` CLI は、実要件を全て満たすが擬似要件 R-51 で穴を報告。
+def test_self_check_cli_exit_code_is_zero_at_full_coverage() -> None:
+    """自 spec への `check` CLI は、既定閾値(1.0)でも終了コード 0 を返す。
 
-    既定 min-coverage=1.0 では Glossary 由来の擬似要件（R-51）が uncovered のため
-    終了コード 1 を返す。擬似要件 1 件を除いた実質カバレッジ率（50/51 ≒ 0.98）を
-    下回らない閾値 0.98 を与えれば、実要件が全て covered なので終了コード 0 を返す。
-    これにより「ツールが自分の実要件を covered と報告する」ことを CLI 経由で確認する。
+    KI-01 修正後は擬似要件が発生せず、実要件 R-01〜R-50 がすべて covered なので
+    自己カバレッジは 50/50（100%）になる。したがって既定 min-coverage=1.0 でも
+    穴は無く、終了コード 0 を返す。より緩い閾値 0.8 でも当然 0 を返す。
+    これにより「ツールが自分の全実要件を covered と報告する」ことを CLI で確認する。
 
     req: R-40
     """
@@ -358,10 +357,10 @@ def test_self_check_cli_exit_code_with_glossary_artifact() -> None:
     req_arg = str(_SPEC_REQUIREMENTS)
     tests_arg = str(_PROJECT_TESTS_DIR)
 
-    # Act: 既定閾値（1.0）と、擬似要件 1 件を許容する閾値（0.98）で判定する
+    # Act: 既定閾値（1.0）と、より緩い閾値（0.8）で判定する
     strict_code = main(["check", "-r", req_arg, "--tests", tests_arg])
-    tolerant_code = main(["check", "-r", req_arg, "--tests", tests_arg, "--min-coverage", "0.98"])
+    tolerant_code = main(["check", "-r", req_arg, "--tests", tests_arg, "--min-coverage", "0.8"])
 
-    # Assert: 擬似要件 R-51 により既定では 1、実要件網羅を許容する閾値では 0
-    assert strict_code == 1
+    # Assert: 全要件 covered のため、どちらの閾値でも終了コード 0
+    assert strict_code == 0
     assert tolerant_code == 0

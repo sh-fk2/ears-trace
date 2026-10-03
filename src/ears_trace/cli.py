@@ -15,6 +15,7 @@ stub_generator）を組み合わせて 3 サブコマンド（report・check・g
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
 from ears_trace.coverage import build_report
@@ -257,3 +258,10 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     handler = _DISPATCH[args.command]
     return handler(args)
+
+
+if __name__ == "__main__":
+    # `python -m ears_trace.cli ...` での直接実行経路。
+    # `ears-trace` コマンド（project.scripts）と同じく main() を呼び、
+    # 終了コードをプロセスに伝播させる。
+    sys.exit(main())
