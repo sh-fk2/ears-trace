@@ -1,0 +1,24 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ears-trace",
+  "version": "0.1.0",
+  "description": "EARS要件からテスト・トレーサビリティを可視化する。requirements.md(EARS)とpytestを突き合わせ、テストの穴(未検証の要件)を検出し、HTMLレポート・CI判定・pytestスタブ生成を行う。",
+  "author": {
+    "name": "sh_fukatsu"
+  },
+  "homepage": "https://github.com/sh-fukatsu/ears-trace",
+  "repository": "https://github.com/sh-fukatsu/ears-trace",
+  "license": "MIT",
+  "keywords": [
+    "ears",
+    "requirements",
+    "traceability",
+    "testing",
+    "pytest",
+    "coverage",
+    "spec",
+    "要件",
+    "トレーサビリティ",
+    "テスト"
+  ]
+}
