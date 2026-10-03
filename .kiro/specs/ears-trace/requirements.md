@@ -17,7 +17,7 @@ State(WHILE) / Unwanted(IF-THEN) / Optional(WHERE)）で定義する。各要件
 ## Glossary
 
 - **EARS**: Easy Approach to Requirements Syntax。要件を定型構文で書く記法。
-- **要件行**: 大文字小文字を問わず `SHALL` を含むテキスト行。ツールが要件として抽出する対象。
+- **要件行**: 大文字小文字を問わず述語として `SHALL` を含むテキスト行。ツールが要件として抽出する対象。ただしインラインコード（バッククォート内）にのみ現れる場合は要件行とみなさない。
 - **明示 ID**: `R-01` のように `[A-Z]{1,5}-\d{1,4}` に一致する要件識別子。
 - **採番 ID**: 明示 ID を持たない要件行に対し、衝突しないよう自動付与される `R-NN` 形式の ID。
 - **トレースリンク**: ある要件 ID を充足するテスト（1件以上）の対応関係。
@@ -33,7 +33,7 @@ State(WHILE) / Unwanted(IF-THEN) / Optional(WHERE)）で定義する。各要件
 
 #### 受け入れ基準
 
-1. R-01: IF 入力テキストの行が大文字小文字を問わず `SHALL` を含む THEN THE SYSTEM SHALL その行を要件行として抽出する
+1. R-01: IF 入力テキストの行が大文字小文字を問わず `SHALL` を含む THEN THE SYSTEM SHALL その行を要件行として抽出する。ただし、インラインコード（バッククォートで囲まれた範囲）内にのみ `SHALL` が現れる行は、要件行として抽出しない
 2. R-02: WHEN 要件行を分類する THE SYSTEM SHALL Ubiquitous / Event(WHEN) / State(WHILE) / Unwanted(IF-THEN) / Optional(WHERE) のいずれかのパターンに分類する
 3. R-03: IF 要件行が `IF ... THEN ... SHALL` と `WHEN ... SHALL` の双方に一致し得る THEN THE SYSTEM SHALL Unwanted を Event より優先して分類する
 4. R-04: IF 要件行が `WHERE`・`WHILE` 節と単なる `SHALL` の双方に一致し得る THEN THE SYSTEM SHALL Optional・State を Ubiquitous より優先して分類する

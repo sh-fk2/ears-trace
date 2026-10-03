@@ -774,3 +774,67 @@ def test_parse_assigns_pattern_to_each_requirement() -> None:
         EarsPattern.EVENT,
         EarsPattern.UNWANTED,
     ]
+
+
+
+# ---------------------------------------------------------------------------
+# KI-01 回帰: インラインコード内のみの SHALL は要件行として抽出しない（R-01）
+# ---------------------------------------------------------------------------
+@pytest.mark.unit
+@pytest.mark.requirement("R-01")
+def test_inline_code_only_shall_is_not_extracted() -> None:
+    """バッククォート内にのみ SHALL が現れる行は要件行にしない（R-01 / KI-01）。
+
+    Glossary の用語説明のように `SHALL` を名詞的に引用した行を、
+    要件として誤検出しないことを検証する。
+    req: R-01
+    """
+    # Arrange: Glossary の該当行を模した入力（インラインコード内のみに SHALL）
+    text = "- **要件行**: 大文字小文字を問わず `SHALL` を含むテキスト行。"
+
+    # Act
+    requirements = parse(text)
+
+    # Assert: 要件として抽出されない
+    assert requirements == ()
+
+
+@pytest.mark.unit
+@pytest.mark.requirement("R-01")
+def test_predicate_shall_is_still_extracted_alongside_inline_code() -> None:
+    """述語の SHALL は、同じ行にインラインコードがあっても抽出される（R-01 / KI-01）。
+
+    インラインコード内の別語があっても、コード外に述語 SHALL があれば要件行。
+    req: R-01
+    """
+    # Arrange: コード表記 `R-01` を含むが、述語 SHALL は本文にある
+    text = "THE SYSTEM SHALL `R-01` 形式のIDを採用する"
+
+    # Act
+    requirements = parse(text)
+
+    # Assert: 本物の要件なので抽出される
+    assert len(requirements) == 1
+
+
+@pytest.mark.unit
+@pytest.mark.requirement("R-01")
+def test_glossary_block_does_not_leak_phantom_requirement() -> None:
+    """要件とGlossary風説明が混在しても、説明文は要件化されない（R-01 / KI-01）。
+
+    req: R-01
+    """
+    # Arrange
+    text = (
+        "## Requirements\n"
+        "- R-01: THE SYSTEM SHALL 入力フォームを表示する\n"
+        "## Glossary\n"
+        "- **要件行**: 大文字小文字を問わず `SHALL` を含むテキスト行。\n"
+    )
+
+    # Act
+    requirements = parse(text)
+
+    # Assert: 本物の R-01 の1件だけ。幻の要件が増えない
+    ids = [r.id for r in requirements]
+    assert ids == ["R-01"]

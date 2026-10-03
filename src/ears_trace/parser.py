@@ -18,6 +18,27 @@ from ears_trace.models import EarsPattern, Requirement
 # SHALL 検出（大文字小文字を区別しない）。単語境界を要求し "SHALLOW" 等は除外する。
 _SHALL_RE = re.compile(r"\bSHALL\b", re.IGNORECASE)
 
+# インラインコード（バッククォートで囲まれた範囲）を検出する正規表現。
+# 要件判定の前に除去し、`SHALL` を名詞的に引用しただけの説明文（Glossary等）を
+# 要件行として誤検出しないようにする（R-01 / KI-01）。
+_INLINE_CODE_RE = re.compile(r"`[^`]*`")
+
+
+def _strip_inline_code(line: str) -> str:
+    """行からインラインコード（バッククォート内）を除去する（R-01）。
+
+    EARS の述語としての `SHALL` を判定するため、コード表記された `` `SHALL` ``
+    のような引用を取り除いた文字列を返す。要件行かどうかの判定にのみ用い、
+    抽出・表示する原文自体は変更しない。
+
+    Args:
+        line: 判定対象の1行テキスト。
+
+    Returns:
+        インラインコード範囲を除去した文字列。
+    """
+    return _INLINE_CODE_RE.sub(" ", line)
+
 # EARS パターン判定。ears-vocabulary ステアリング規約の判定順序に従う。
 # UNWANTED → EVENT → STATE → OPTIONAL → UBIQUITOUS。いずれも該当しなければ UNKNOWN。
 _PATTERN_ORDER: tuple[tuple[EarsPattern, re.Pattern[str]], ...] = (
@@ -165,7 +186,8 @@ def parse(text: str) -> tuple[Requirement, ...]:
     reserved_ids: set[str] = set()
     normalized_lines: list[str] = []
     for line in text.splitlines():
-        if not _SHALL_RE.search(line):
+        # インラインコード内のみに SHALL が現れる行は要件行にしない（R-01 / KI-01）。
+        if not _SHALL_RE.search(_strip_inline_code(line)):
             continue
         normalized = _normalize_line(line)
         normalized_lines.append(normalized)

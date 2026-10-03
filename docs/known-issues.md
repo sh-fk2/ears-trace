@@ -38,4 +38,14 @@ L5（Powers）完了後に独立タスクとして対応する。
 
 ### ステータス
 - 発見: L5（Powers）作業中の自己トレースで検出
-- 対応: 未対応（L5完了後に着手予定）
+- 対応: **解決済み（CLOSED）**
+
+### 解決内容
+パーサに「インラインコード（バッククォート内）を除去してから `SHALL` を判定する」
+処理を追加（`parser._strip_inline_code`）。これにより Glossary の `` `SHALL` ``
+のようなコード表記の引用を要件行として誤検出しなくなった。
+- spec更新: requirements.md R-01 に除外規約を追記、design.md parse節に反映
+- TDD: KI-01 再現テスト3件（インラインコードのみのSHALL除外／述語SHALL維持／
+  Glossary混在で幻要件が出ない）を追加し RED→GREEN
+- 検証: 自己トレースが 50/50（100%）になり、幻の R-51 が消滅
+- 併せて requirements.md の Glossary 定義文を単一バッククォート表記に修正
