@@ -8,6 +8,12 @@ EARS記法で書かれた要件（`requirements.md`）を起点に、テスト�
 
 **Kiro University Challenge** の最終プロジェクトとして、7レッスン全部＋ボーナスを実演する形で作成した。
 
+## デモ動画
+
+[![Demo video](https://img.youtube.com/vi/ZZ62xMf4aig/0.jpg)](https://youtu.be/ZZ62xMf4aig)
+
+3分のデモ動画: https://youtu.be/ZZ62xMf4aig
+
 ## できること
 
 1. **トレーサビリティ表の生成** — 要件ID ↔ テスト の対応を自己完結の静的HTMLレポートで可視化

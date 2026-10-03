@@ -8,6 +8,12 @@ ears-trace automates the "next step" after Spec-driven development. Once you hav
 
 Built for the **Kiro University Challenge** as the final project, demonstrating all 7 lessons plus a bonus.
 
+## Demo
+
+[![Demo video](https://img.youtube.com/vi/ZZ62xMf4aig/0.jpg)](https://youtu.be/ZZ62xMf4aig)
+
+Watch the 3-minute demo: https://youtu.be/ZZ62xMf4aig
+
 ## What it does
 
 1. **Traceability report** — visualizes requirement ID ↔ test mapping as a self-contained HTML report
