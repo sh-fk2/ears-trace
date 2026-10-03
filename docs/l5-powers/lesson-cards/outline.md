@@ -1,5 +1,6 @@
 # Outline
 
+- [title] ears-trace - opening title card
 - [l1] Lesson 1 - Spec-driven development
 - [l2] Lesson 2 - Steering
 - [l3] Lesson 3 - Hooks

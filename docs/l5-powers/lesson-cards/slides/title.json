@@ -1,0 +1,49 @@
+{
+  "layout": "Blank",
+  "notes": "Opening title card for the demo video.",
+  "elements": [
+    {
+      "type": "shape",
+      "shape": "rectangle",
+      "x": 160,
+      "y": 360,
+      "width": 160,
+      "height": 10,
+      "fill": "#D4AF37"
+    },
+    {
+      "type": "textbox",
+      "x": 160,
+      "y": 400,
+      "width": 1600,
+      "height": 150,
+      "align": "left",
+      "fontSize": 48,
+      "fontColor": "#F5E6B8",
+      "bold": true,
+      "text": "ears-trace"
+    },
+    {
+      "type": "textbox",
+      "x": 160,
+      "y": 560,
+      "width": 1600,
+      "height": 90,
+      "align": "left",
+      "fontSize": 28,
+      "fontColor": "#D4AF37",
+      "text": "Turn EARS requirements into a test-traceability report"
+    },
+    {
+      "type": "textbox",
+      "x": 160,
+      "y": 670,
+      "width": 1600,
+      "height": 70,
+      "align": "left",
+      "fontSize": 16,
+      "fontColor": "#9A9AAA",
+      "text": "Kiro University Challenge - Final project - Built with Kiro"
+    }
+  ]
+}
