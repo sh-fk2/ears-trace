@@ -1,0 +1,29 @@
+{
+  "notes": "ドッグフーディング",
+  "elements": [
+    {
+      "type": "textbox",
+      "x": 160,
+      "y": 120,
+      "width": 1600,
+      "height": 80,
+      "align": "left",
+      "fontSize": 38,
+      "fontColor": "#F5E6B8",
+      "bold": true,
+      "text": "自己トレース: ツールが自分を検査"
+    },
+    {
+      "type": "textbox",
+      "x": 160,
+      "y": 280,
+      "width": 1600,
+      "height": 420,
+      "align": "left",
+      "fontSize": 28,
+      "fontColor": "#F5E6B8",
+      "text": "ears-trace は自分自身の requirements.md をトレースできる。\n\n50件のEARS要件に対し、テストの穴を機械的に特定。\n\n説明文の誤検出(KI-01)もドッグフーディングで浮き彫りにした。"
+    }
+  ],
+  "layout": "Blank"
+}

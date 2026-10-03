@@ -1,0 +1,40 @@
+{
+  "layout": "Blank",
+  "notes": "タイトル",
+  "elements": [
+    {
+      "type": "textbox",
+      "x": 160,
+      "y": 380,
+      "width": 1600,
+      "height": 120,
+      "align": "left",
+      "fontSize": 48,
+      "fontColor": "#F5E6B8",
+      "bold": true,
+      "text": "ears-trace"
+    },
+    {
+      "type": "textbox",
+      "x": 160,
+      "y": 520,
+      "width": 1600,
+      "height": 90,
+      "align": "left",
+      "fontSize": 28,
+      "fontColor": "#D4AF37",
+      "text": "EARS要件とテストの穴を、自動で可視化する"
+    },
+    {
+      "type": "textbox",
+      "x": 160,
+      "y": 640,
+      "width": 1600,
+      "height": 70,
+      "align": "left",
+      "fontSize": 16,
+      "fontColor": "#9A9AAA",
+      "text": "仕様駆動開発の「次の一手」を自動化するPython CLIツール"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "notes": "PBT",
+  "elements": [
+    {
+      "type": "textbox",
+      "x": 160,
+      "y": 120,
+      "width": 1600,
+      "height": 80,
+      "align": "left",
+      "fontSize": 38,
+      "fontColor": "#F5E6B8",
+      "bold": true,
+      "text": "品質: 不変条件で正しさを担保"
+    },
+    {
+      "type": "textbox",
+      "x": 160,
+      "y": 280,
+      "width": 1600,
+      "height": 420,
+      "align": "left",
+      "fontSize": 28,
+      "fontColor": "#F5E6B8",
+      "text": "Property-based testing (Hypothesis) で要件の不変条件を検証。\n\n集合分割 / 単調性 / 順序不変性 / 決定論性 / パーサ頑健性。\n\n162テスト・カバレッジ99%。"
+    }
+  ],
+  "layout": "Blank"
+}

@@ -1,0 +1,29 @@
+{
+  "notes": "処理の流れ",
+  "elements": [
+    {
+      "type": "textbox",
+      "x": 160,
+      "y": 120,
+      "width": 1600,
+      "height": 80,
+      "align": "left",
+      "fontSize": 38,
+      "fontColor": "#F5E6B8",
+      "bold": true,
+      "text": "仕組み: 要件から穴を導く"
+    },
+    {
+      "type": "textbox",
+      "x": 160,
+      "y": 260,
+      "width": 1600,
+      "height": 520,
+      "align": "left",
+      "fontSize": 28,
+      "fontColor": "#F5E6B8",
+      "text": "1. requirements.md (EARS) をパースし、要件ID(R-01形式)を抽出\n\n2. pytestのテストから3方式(マーカー/命名/docstring)で要件IDを照合\n\n3. 全要件を covered / uncovered(穴) に排他かつ網羅に分割\n\n4. HTMLレポート / CI向けcheck / スタブ生成 で出力"
+    }
+  ],
+  "layout": "Blank"
+}

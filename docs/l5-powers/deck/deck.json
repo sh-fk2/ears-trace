@@ -1,0 +1,13 @@
+{
+  "template": "blank-dark.pptx",
+  "fonts": {
+    "fullwidth": "Palatino",
+    "halfwidth": "Garamond"
+  },
+  "defaultTextColor": "#F5E6B8",
+  "slideSize": {
+    "width": 1920,
+    "height": 1080,
+    "ptPerPx": 0.5
+  }
+}
